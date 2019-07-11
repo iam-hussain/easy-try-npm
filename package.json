@@ -1,0 +1,28 @@
+{
+  "name": "easytry",
+  "version": "1.0.0",
+  "description": "EasyTry is step to npm with lots of functionality like Profanity, Generator, etc..",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZaHuPro/EasyTry.git"
+  },
+  "keywords": [
+    "Easy",
+    "Try",
+    "Profanity",
+    "Bad",
+    "Words",
+    "Filter",
+    "Basic"
+  ],
+  "author": "ZaHu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZaHuPro/EasyTry/issues"
+  },
+  "homepage": "https://github.com/ZaHuPro/EasyTry#readme"
+}

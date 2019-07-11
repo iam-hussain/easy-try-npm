@@ -1,3 +1,3 @@
-var profanity = require('./profanity');
-console.log(" ========== ", profanity.Filter("I am the fuck god",'en'))
+var Profanity = require('./profanity');
 
+module.exports.Profanity = Profanity;
