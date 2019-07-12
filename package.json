@@ -1,6 +1,6 @@
 {
   "name": "easytry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "EasyTry is step to npm with lots of functionality like Profanity, Generator, etc..",
   "main": "index.js",
   "scripts": {
