@@ -1,9 +1,8 @@
 # EasyTry 1.0.2
 
-A lightweight JavaScript library for profanity words filter, random genrator, etc..
+A lightweight   library for profanity words filter, random genrator, etc..
   
 # Instalation 
-var EasyTry = require('easytry');
 
 Using npm:   
 ```js   
