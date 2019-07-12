@@ -17,7 +17,9 @@
     "Bad",
     "Words",
     "Filter",
-    "Basic"
+    "Basic",
+    "Multi",
+    "Language"
   ],
   "author": "ZaHu",
   "license": "ISC",
