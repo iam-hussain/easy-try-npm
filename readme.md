@@ -32,14 +32,15 @@ In Node.js:
      
 > **ProTip:** Other **Language** are not allowed.
 
-**Use ES5  JavaScript syntax**
-```js   
-    var EasyTry = require('easytry');
-    EasyTry.Profanity.Filter('Example sentences to be filtered', 'en')
-```
+**Simple Filter**
 
-**Use ES6 JavaScript syntax**
 ```js   
-    import { Profanity } as 'easytry';
-    Profanity.Filter('Example sentences to be filtered', 'en')
+    var Profanity = require('easytry').Profanity;
+    var Filter = new Profanity();
+    console.log(Filter.clean('Example sentences to be filtered'))
+```
+**Options in Filter**
+
+```js   
+
 ```
