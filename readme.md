@@ -53,9 +53,45 @@ Incrementer.next('AAA999BAA009')
 **Options**
 
 ```js   
-    **Placeholder Overrides**
+
+    //Placeholder Overrides
     var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
     console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
+
+
+    //Regex Overrides
+    var Filter = new EasyTry.Profanity({ regex: /\*|\.|$/gi });
+    var Filter = new EasyTry.Profanity({ replaceRegex:  /[A-Za-z0-9가-힣_]/g }); 
+    //multilingual support for word filtering
+
+
+    //Add words to the blacklist
+    var Filter = new EasyTry.Profanity(); 
+    Filter.addWords('some', 'bad', 'word');
+    Filter.clean("some bad word!") //**** *** ****!
+    //or use an array using the spread operator
+    var newBadWords = ['some', 'bad', 'word'];
+    Filter.addWords(...newBadWords);
+    Filter.clean("some bad word!") //**** *** ****!
+    //or
+    var Filter = new Filter({ list: ['some', 'bad', 'word'] }); 
+    Filter.clean("some bad word!") //**** *** ****!
+
+
+    //Instantiate with an empty list
+    var Filter = new EasyTry.Profanity({ emptyList: true }); 
+    Filter.clean('hell this wont clean anything'); //hell this wont clean anything
+
+
+    //Remove words from the blacklist
+    var Filter = new EasyTry.Profanity();    
+    Filter.removeWords('hells' 'sadist');
+    Filter.clean("some hells word!"); //some hells word!
+    //or use an array using the spread operator
+    var removeWords = ['hells', 'sadist'];
+    Filter.removeWords(...removeWords);
+    Filter.clean("some sadist hells word!"); //some sadist hells word!
+
 ```
 
 
