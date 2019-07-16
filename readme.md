@@ -11,14 +11,8 @@ Using npm:
 ```
 
 In Node.js: 
-**Use ES5  JavaScript syntax**
 ```js   
     var EasyTry = require('easytry');
-```
-
-**Use ES6 JavaScript syntax**
-```js   
-    import EasyTry as 'easytry'
 ```
 
 # Example Usage   
@@ -44,3 +38,28 @@ In Node.js:
 ```js   
 
 ```
+
+## Next Incrementer
+
+```js   
+var Incrementer = EasyTry.Incrementer();
+
+Incrementer.next('2019/01/ABC001')
+// => 2017/08/ABC002
+Incrementer.next('aaa999AZz999')
+// => aaa999BAa000
+```
+
+**Options**
+
+```js   
+var Incrementer = new EasyTry.Incrementer({uppercase : true, incrementer_by: 10, formate : 'aaAA001'});
+
+Incrementer.next()
+// => AAAA011
+Incrementer.next()
+// => AAAA021
+Incrementer.next('AAA999BAA009')
+// => AAA999BAA499
+```
+> **Note:** Default **formate** for Incrementer **000aa0**.
