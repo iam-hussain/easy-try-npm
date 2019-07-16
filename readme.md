@@ -1,4 +1,4 @@
-# EasyTry 1.0.2
+# EasyTry 2.0.1
 
 A lightweight library for profanity words filter, auto generate unique alphanumeric id as incremental sequentially, etc..
   
@@ -33,7 +33,11 @@ Incrementer.next('aaa999AZz999')
 **Options**
 
 ```js   
-var Incrementer = new EasyTry.Incrementer({uppercase : true, incrementer_by: 10, formate : 'aaAA001'});
+var Incrementer = new EasyTry.Incrementer({
+    uppercase : true, 
+    incrementer_by: 10, 
+    formate : 'aaAA001'
+    });
 
 Incrementer.next()
 // => AAAA011
@@ -41,19 +45,19 @@ Incrementer.next()
 // => AAAA021
 Incrementer.next('AAA999BAA009')
 // => AAA999BAA499
-```
-> **Note:** Default value for Incrementer  **uppercase : false, incrementer_by: 1, formate : '000aa0'**.
+``` 
+*Note: Default value for Incrementer {uppercase : false, incrementer_by: 1, formate : '000aa0'}.*
 
 
 ## Profanity Word Filer
  A Javascript function for detecting and filtering profanity words. Support for Multi Language is included.
 
 ```js   
-    var Filter = new EasyTry.Profanity({lang : 'en'});
-    console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
-    //Allowed Language are ['ar','cs','da','en','eo','es','fa','fi','fr','hi','hu','it','ja','ko','nl','no','pl','pt','ru','sv','th','tlh','zh']
+var Filter = new EasyTry.Profanity({lang : 'en'});
+console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
+//Allowed Language are ['ar','cs','da','en','eo','es','fa','fi','fr','hi','hu','it','ja','ko','nl','no','pl','pt','ru','sv','th','tlh','zh']
 ```
-> **Note:** Default value for Profanity  **lang : 'en', placeHolder: '*'**.
+*Note: Default value for Profanity {lang : 'en', placeHolder: '*'}.*
 
 **Placeholder Overrides**
 ```js   
