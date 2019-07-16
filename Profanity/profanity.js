@@ -70,7 +70,7 @@ class Profanity {
   }
 
   wordsList(string) {
-    return string ? string : this.list;
+    return this.isCorrectLang(string) ?  require('./languages/' + string + '.json') : this.list;
   }
 
   /**

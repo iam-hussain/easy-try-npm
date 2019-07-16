@@ -18,6 +18,7 @@ In Node.js:
 # Example Usage   
 
 ## Next Incrementer
+A Javascript function to generate alphanumeric increment sequentially.
 
 ```js   
 var Incrementer = new EasyTry.Incrementer();
@@ -44,61 +45,70 @@ Incrementer.next('AAA999BAA009')
 
 
 ## Profanity Word Filer
+ A Javascript function for detecting and filtering profanity words. Support for Multi Language is included.
 
 ```js   
-    var Filter = new EasyTry.Profanity();
+    var Filter = new EasyTry.Profanity({lang : 'en'});
     console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
+    //Allowed Language are ['ar','cs','da','en','eo','es','fa','fi','fr','hi','hu','it','ja','ko','nl','no','pl','pt','ru','sv','th','tlh','zh']
 ```
-### Placeholder Overrides
-*Placeholder Overrides*
+> **Note:** Default value for Profanity  **lang : 'en', placeHolder: '*'**.
+
+**Placeholder Overrides**
 ```js   
-    //Placeholder Overrides
     var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
     console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
 ```
 
-    //Regex Overrides
+**Regex Overrides**
+```js
     var Filter = new EasyTry.Profanity({ regex: /\*|\.|$/gi });
     var Filter = new EasyTry.Profanity({ replaceRegex:  /[A-Za-z0-9가-힣_]/g }); 
     //multilingual support for word filtering
+```
 
-
-    //Add words to the blacklist
+**Add words to the blacklist**
+```js
     var Filter = new EasyTry.Profanity(); 
     Filter.addWords('some', 'bad', 'word');
     Filter.clean("some bad word!") //**** *** ****!
+
     //or use an array using the spread operator
+
     var newBadWords = ['some', 'bad', 'word'];
     Filter.addWords(...newBadWords);
     Filter.clean("some bad word!") //**** *** ****!
+
     //or
+    
     var Filter = new Filter({ list: ['some', 'bad', 'word'] }); 
     Filter.clean("some bad word!") //**** *** ****!
+```
 
-
-    //Instantiate with an empty list
+**Instantiate with an empty list**
+```js
     var Filter = new EasyTry.Profanity({ emptyList: true }); 
     Filter.clean('hell this wont clean anything'); //hell this wont clean anything
+```
 
-
-    //Remove words from the blacklist
+**Remove words from the blacklist**
+```js
     var Filter = new EasyTry.Profanity();    
     Filter.removeWords('hells' 'sadist');
     Filter.clean("some hells word!"); //some hells word!
+    
     //or use an array using the spread operator
+    
     var removeWords = ['hells', 'sadist'];
     Filter.removeWords(...removeWords);
     Filter.clean("some sadist hells word!"); //some sadist hells word!
-
 ```
 
-
- A Javascript fuction for detecting and filtering profanity words. Support for Multi Language is included.
-
-    |    Arabic     |     German    |    English    |     French    |    Russian    |    Spanish    |    Italian    |
-    |---------------|---------------|---------------|---------------|---------------|---------------|---------------|
-    |       ar      |       de      |       en      |       fr      |       ru      |       es      |       it      |
-     
-> **ProTip:** Other **Language** are not allowed.
-
+**Export words list with language**
+```js
+    var Filter = new EasyTry.Profanity();    
+    Filter.wordsList('en'); // [ "*dyke", "*shit*", "2g1c", "4r5e", "5h1t", "5hit"...]
+    Filter.wordsList('es'); // [ "Asesinato", "Bollera", "Cabron", "Cabrón", "Caca", "Chupada",..]
+    // on error lang is 'en'
+```
 
