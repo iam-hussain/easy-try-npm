@@ -24,10 +24,8 @@ A Javascript function to generate alphanumeric increment sequentially. Used for 
 ```js   
 var Incrementer = new EasyTry.Incrementer();
 
-Incrementer.next('2019/01/ABC001')
-// => 2017/08/ABC002
-Incrementer.next('aaa999AZz999')
-// => aaa999BAa000
+Incrementer.next('2019/01/ABC001')//2017/08/ABC002
+Incrementer.next('aaa999AZz999')//aaa999BAa000
 ```
 
 **Options**
@@ -39,14 +37,13 @@ var Incrementer = new EasyTry.Incrementer({
     formate : 'aaAA001'
     });
 
-Incrementer.next()
-// => AAAA011
-Incrementer.next()
-// => AAAA021
-Incrementer.next('AAA999BAA009')
-// => AAA999BAA499
+Incrementer.next()//AAAA011
+Incrementer.next()//AAAA021
+Incrementer.next('AAA999BAA009')//AAA999BAA499
+Incrementer.next()//AAAA031
+Incrementer.next()//AAAA041
 ``` 
-*Note: Default value for Incrementer {uppercase : false, incrementer_by: 1, formate : '000aa0'}.*
+Note: Default value for Incrementer {uppercase : false, incrementer_by: 1, formate : '000aa0'}.
 
 
 ## Profanity Word Filer
@@ -57,7 +54,7 @@ var Filter = new EasyTry.Profanity({lang : 'en'});
 console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
 //Allowed Language are ['ar','cs','da','en','eo','es','fa','fi','fr','hi','hu','it','ja','ko','nl','no','pl','pt','ru','sv','th','tlh','zh']
 ```
-*Note: Default value for Profanity {lang : 'en', placeHolder: '*'}.*
+Note: Default value for Profanity {lang : 'en', placeHolder: '*'}.
 
 **Placeholder Overrides**
 ```js   
@@ -112,8 +109,8 @@ Filter.clean("some sadist hells word!"); //some sadist hells word!
 **Export words list with language**
 ```js
 var Filter = new EasyTry.Profanity();    
-Filter.wordsList('en'); // [ "*dyke", "*shit*", "2g1c", "4r5e", "5h1t", "5hit"...]
-Filter.wordsList('es'); // [ "Asesinato", "Bollera", "Cabron", "Cabrón", "Caca", "Chupada",..]
+Filter.wordsList('en'); // [ "*dyke", "*shit*"...]
+Filter.wordsList('es'); // [ "Asesinato", "Bollera",..]
 // on error lang is 'en'
 ```
 
