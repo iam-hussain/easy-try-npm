@@ -1,26 +1,34 @@
 {
   "name": "easytry",
-  "version": "1.0.2",
-  "description": "EasyTry is step to npm with lots of functionality like Profanity, Generator, etc..",
+  "version": "2.0.0",
+  "description": "A lightweight library for profanity words filter, auto generate unique alphanumeric id as incremental sequentially, etc..",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZaHuPro/EasyTry.git"
   },
   "keywords": [
-    "Easy",
-    "Try",
-    "Profanity",
-    "Bad",
-    "Words",
-    "Filter",
-    "Basic",
-    "Multi",
-    "Language"
+    "easy",
+    "try",
+    "profanity",
+    "bad",
+    "words",
+    "filter",
+    "basic",
+    "multi",
+    "language",
+    "auto",
+    "generate",
+    "alphanumeric",
+    "increment",
+    "sequentially",
+    "pattern",
+    "unique",
+    "generate ID",
+    "ID"
   ],
   "author": "ZaHu",
   "license": "ISC",

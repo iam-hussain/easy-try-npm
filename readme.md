@@ -1,24 +1,25 @@
 # EasyTry 1.0.2
 
-A lightweight   library for profanity words filter, random genrator, etc..
+A lightweight library for profanity words filter, auto generate unique alphanumeric id as incremental sequentially, etc..
   
 # Instalation 
 
 Using npm:   
 ```js   
-    $ npm i easytry
-    $ npm i --save easytry 
+$ npm i easytry
+$ npm i --save easytry 
 ```
 
 In Node.js: 
 ```js   
-    var EasyTry = require('easytry');
+var EasyTry = require('easytry');
 ```
 
 # Example Usage   
 
 ## Next Incrementer
-A Javascript function to generate alphanumeric increment sequentially.
+A Javascript function to generate alphanumeric increment sequentially. Used for auto generating unique alphanumeric id with specified pattern
+
 
 ```js   
 var Incrementer = new EasyTry.Incrementer();
@@ -56,59 +57,59 @@ Incrementer.next('AAA999BAA009')
 
 **Placeholder Overrides**
 ```js   
-    var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
-    console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
+var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
+console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
 ```
 
 **Regex Overrides**
 ```js
-    var Filter = new EasyTry.Profanity({ regex: /\*|\.|$/gi });
-    var Filter = new EasyTry.Profanity({ replaceRegex:  /[A-Za-z0-9가-힣_]/g }); 
-    //multilingual support for word filtering
+var Filter = new EasyTry.Profanity({ regex: /\*|\.|$/gi });
+var Filter = new EasyTry.Profanity({ replaceRegex:  /[A-Za-z0-9가-힣_]/g }); 
+//multilingual support for word filtering
 ```
 
 **Add words to the blacklist**
 ```js
-    var Filter = new EasyTry.Profanity(); 
-    Filter.addWords('some', 'bad', 'word');
-    Filter.clean("some bad word!") //**** *** ****!
+var Filter = new EasyTry.Profanity(); 
+Filter.addWords('some', 'bad', 'word');
+Filter.clean("some bad word!") //**** *** ****!
 
-    //or use an array using the spread operator
+//or use an array using the spread operator
 
-    var newBadWords = ['some', 'bad', 'word'];
-    Filter.addWords(...newBadWords);
-    Filter.clean("some bad word!") //**** *** ****!
+var newBadWords = ['some', 'bad', 'word'];
+Filter.addWords(...newBadWords);
+Filter.clean("some bad word!") //**** *** ****!
 
-    //or
-    
-    var Filter = new Filter({ list: ['some', 'bad', 'word'] }); 
-    Filter.clean("some bad word!") //**** *** ****!
+//or
+
+var Filter = new Filter({ list: ['some', 'bad', 'word'] }); 
+Filter.clean("some bad word!") //**** *** ****!
 ```
 
 **Instantiate with an empty list**
 ```js
-    var Filter = new EasyTry.Profanity({ emptyList: true }); 
-    Filter.clean('hell this wont clean anything'); //hell this wont clean anything
+var Filter = new EasyTry.Profanity({ emptyList: true }); 
+Filter.clean('hell this wont clean anything'); //hell this wont clean anything
 ```
 
 **Remove words from the blacklist**
 ```js
-    var Filter = new EasyTry.Profanity();    
-    Filter.removeWords('hells' 'sadist');
-    Filter.clean("some hells word!"); //some hells word!
-    
-    //or use an array using the spread operator
-    
-    var removeWords = ['hells', 'sadist'];
-    Filter.removeWords(...removeWords);
-    Filter.clean("some sadist hells word!"); //some sadist hells word!
+var Filter = new EasyTry.Profanity();    
+Filter.removeWords('hells' 'sadist');
+Filter.clean("some hells word!"); //some hells word!
+
+//or use an array using the spread operator
+
+var removeWords = ['hells', 'sadist'];
+Filter.removeWords(...removeWords);
+Filter.clean("some sadist hells word!"); //some sadist hells word!
 ```
 
 **Export words list with language**
 ```js
-    var Filter = new EasyTry.Profanity();    
-    Filter.wordsList('en'); // [ "*dyke", "*shit*", "2g1c", "4r5e", "5h1t", "5hit"...]
-    Filter.wordsList('es'); // [ "Asesinato", "Bollera", "Cabron", "Cabrón", "Caca", "Chupada",..]
-    // on error lang is 'en'
+var Filter = new EasyTry.Profanity();    
+Filter.wordsList('en'); // [ "*dyke", "*shit*", "2g1c", "4r5e", "5h1t", "5hit"...]
+Filter.wordsList('es'); // [ "Asesinato", "Bollera", "Cabron", "Cabrón", "Caca", "Chupada",..]
+// on error lang is 'en'
 ```
 
