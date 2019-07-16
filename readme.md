@@ -44,6 +44,21 @@ Incrementer.next('AAA999BAA009')
 
 
 ## Profanity Word Filer
+
+```js   
+    var Filter = new EasyTry.Profanity();
+    console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
+```
+
+**Options**
+
+```js   
+    **Placeholder Overrides**
+    var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
+    console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
+```
+
+
  A Javascript fuction for detecting and filtering profanity words. Support for Multi Language is included.
 
     |    Arabic     |     German    |    English    |     French    |    Russian    |    Spanish    |    Italian    |
@@ -54,11 +69,6 @@ Incrementer.next('AAA999BAA009')
 
 **Simple Filter**
 
-```js   
-    var Profanity = require('easytry').Profanity;
-    var Filter = new Profanity();
-    console.log(Filter.clean('Example sentences to be filtered'))
-```
 **Options in Filter**
 
 ```js   
