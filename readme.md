@@ -49,15 +49,13 @@ Incrementer.next('AAA999BAA009')
     var Filter = new EasyTry.Profanity();
     console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
 ```
-
-**Options**
-
+### Placeholder Overrides
+*Placeholder Overrides*
 ```js   
-
     //Placeholder Overrides
     var Filter = new EasyTry.Profanity({ placeHolder: 'x'});
     console.log(Filter.clean("Don't be an ash0le")); //Don't be an xxxxxx
-
+```
 
     //Regex Overrides
     var Filter = new EasyTry.Profanity({ regex: /\*|\.|$/gi });
@@ -103,11 +101,4 @@ Incrementer.next('AAA999BAA009')
      
 > **ProTip:** Other **Language** are not allowed.
 
-**Simple Filter**
-
-**Options in Filter**
-
-```js   
-
-```
 
