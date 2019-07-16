@@ -43,7 +43,7 @@ Incrementer.next('AAA999BAA009')//AAA999BAA499
 Incrementer.next()//AAAA031
 Incrementer.next()//AAAA041
 ``` 
-Note: Default value for Incrementer {uppercase : false, incrementer_by: 1, formate : '000aa0'}.
+Note: Default value for Incrementer { uppercase : false, incrementer_by: 1, formate : '000aa0' }.
 
 
 ## Profanity Word Filer
@@ -54,7 +54,7 @@ var Filter = new EasyTry.Profanity({lang : 'en'});
 console.log(Filter.clean("Don't be an ash0le")); //Don't be an ******
 //Allowed Language are ['ar','cs','da','en','eo','es','fa','fi','fr','hi','hu','it','ja','ko','nl','no','pl','pt','ru','sv','th','tlh','zh']
 ```
-Note: Default value for Profanity {lang : 'en', placeHolder: '*'}.
+Note: Default value for Profanity { lang : 'en', placeHolder: '*' }.
 
 **Placeholder Overrides**
 ```js   
