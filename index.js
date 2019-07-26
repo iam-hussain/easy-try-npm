@@ -1,5 +1,5 @@
-var Profanity = require('./Profanity/profanity');
-var Incrementer = require('./Incrementer/Incrementer');
+var Profanity = require('./lib/profanity');
+var Incrementer = require('./lib/incrementer');
 
 module.exports.Incrementer = Incrementer;
 module.exports.Profanity = Profanity;
