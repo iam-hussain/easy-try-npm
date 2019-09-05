@@ -1,4 +1,4 @@
-# EasyTry 2.0.1
+# EasyTry 2.0.2
 
 A lightweight library for profanity words filter and auto generate unique alphanumeric id as incremental sequentially
   
