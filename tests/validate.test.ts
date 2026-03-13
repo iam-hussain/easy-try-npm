@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  isEmail, isURL, isEmpty, isEqual, isIPv4, isHexColor,
+  isEmail, isURL, isEmpty, isEqual, isIPv4, isIPv6, isHexColor,
   isAlphanumeric, isJSON, isNumber, isUUID, isObject, isCreditCard,
 } from "../src/validate.js";
 
@@ -48,6 +48,25 @@ describe("validate", () => {
     expect(isIPv4("0.0.0.0")).toBe(true);
     expect(isIPv4("256.0.0.1")).toBe(false);
     expect(isIPv4("1.2.3")).toBe(false);
+  });
+
+  it("isIPv6", () => {
+    // Full form
+    expect(isIPv6("2001:0db8:85a3:0000:0000:8a2e:0370:7334")).toBe(true);
+    expect(isIPv6("fe80:0000:0000:0000:0000:0000:0000:0001")).toBe(true);
+    // Compressed forms
+    expect(isIPv6("2001:db8::1")).toBe(true);
+    expect(isIPv6("::1")).toBe(true);
+    expect(isIPv6("::")).toBe(true);
+    expect(isIPv6("fe80::1")).toBe(true);
+    expect(isIPv6("2001:db8:85a3::8a2e:370:7334")).toBe(true);
+    // Invalid
+    expect(isIPv6("1:::1")).toBe(false);
+    expect(isIPv6(":")).toBe(false);
+    expect(isIPv6("2001:db8::85a3::7334")).toBe(false); // double ::
+    expect(isIPv6("not-ipv6")).toBe(false);
+    expect(isIPv6("192.168.1.1")).toBe(false);
+    expect(isIPv6("12345::1")).toBe(false); // group > 4 hex chars
   });
 
   it("isHexColor", () => {

@@ -113,6 +113,8 @@ export async function pMap<T, R>(
   fn: (item: T, index: number) => Promise<R>,
   concurrency = Infinity
 ): Promise<R[]> {
+  if (items.length === 0) return [];
+  const effectiveConcurrency = Math.max(1, Math.min(concurrency, items.length));
   const results: R[] = new Array(items.length);
   let index = 0;
 
@@ -124,7 +126,7 @@ export async function pMap<T, R>(
   }
 
   const workers = Array.from(
-    { length: Math.min(concurrency, items.length) },
+    { length: effectiveConcurrency },
     () => worker()
   );
 

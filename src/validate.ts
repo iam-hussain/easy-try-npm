@@ -67,10 +67,30 @@ export function isIPv4(str: string): boolean {
   });
 }
 
-/** Check if a string is a valid IPv6 address */
+/** Check if a string is a valid IPv6 address (supports compressed forms like 2001:db8::1) */
 export function isIPv6(str: string): boolean {
-  return /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(str) ||
-    /^(([0-9a-fA-F]{1,4}:)*):((:[0-9a-fA-F]{1,4})*)$/.test(str);
+  // Full form: 8 groups of 1-4 hex digits
+  if (/^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(str)) return true;
+
+  // Compressed form with ::
+  if (!str.includes("::")) return false;
+  // Only one :: allowed
+  if (str.indexOf("::") !== str.lastIndexOf("::")) return false;
+  // Cannot start or end with single colon (but :: at start/end is fine)
+  if ((str.startsWith(":") && !str.startsWith("::")) ||
+      (str.endsWith(":") && !str.endsWith("::"))) return false;
+
+  const parts = str.split("::");
+  const left = parts[0] ? parts[0].split(":") : [];
+  const right = parts[1] ? parts[1].split(":") : [];
+  const totalGroups = left.length + right.length;
+
+  // :: expands to at least one group, so total must be < 8
+  if (totalGroups >= 8) return false;
+
+  const hexGroup = /^[0-9a-fA-F]{1,4}$/;
+  return left.every((g) => hexGroup.test(g)) &&
+         right.every((g) => hexGroup.test(g));
 }
 
 /** Check if a string is a valid hex color */

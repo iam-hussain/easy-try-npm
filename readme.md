@@ -1,13 +1,29 @@
-# easytry v3.0
+# easytry
+
+[![CI](https://github.com/iam-hussain/easy-try-npm/actions/workflows/ci.yml/badge.svg)](https://github.com/iam-hussain/easy-try-npm/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/easytry.svg)](https://www.npmjs.com/package/easytry)
+[![npm downloads](https://img.shields.io/npm/dm/easytry.svg)](https://www.npmjs.com/package/easytry)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/easytry)](https://bundlephobia.com/package/easytry)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
+[![zero dependencies](https://img.shields.io/badge/dependencies-0-green.svg)](https://www.npmjs.com/package/easytry)
+[![license](https://img.shields.io/npm/l/easytry.svg)](https://github.com/iam-hussain/easy-try-npm/blob/master/LICENSE)
 
 A modern, lightweight, **zero-dependency** utility toolkit for everyday JavaScript/TypeScript development.
 
-Tree-shakeable | ESM + CJS | Full TypeScript support | 100+ utilities
+**Tree-shakeable** | **ESM + CJS** | **Full TypeScript** | **110+ utilities** | **Universal (Node + Browser)**
 
 ## Installation
 
 ```bash
 npm install easytry
+```
+
+```bash
+yarn add easytry
+```
+
+```bash
+pnpm add easytry
 ```
 
 ## Quick Start
@@ -16,15 +32,31 @@ npm install easytry
 // Import everything
 import { slugify, chunk, timeAgo, uuid, retry } from 'easytry';
 
-// Or import only what you need (tree-shakeable)
+// Or import only what you need (tree-shakeable, recommended)
 import { slugify, camelCase } from 'easytry/string';
 import { chunk, groupBy } from 'easytry/array';
 import { uuid, nanoid } from 'easytry/id';
+
+// CommonJS
+const { slugify, chunk } = require('easytry');
 ```
 
-## Modules
+## Modules at a Glance
 
-### String (`easytry/string`)
+| Module | Key Functions | Import |
+|---|---|---|
+| **String** | `slugify`, `camelCase`, `snakeCase`, `truncate`, `maskString`, `template` | `easytry/string` |
+| **ID** | `uuid`, `nanoid`, `shortId`, `prefixedId`, `sortableId`, `Incrementer` | `easytry/id` |
+| **Object** | `pick`, `omit`, `deepClone`, `deepMerge`, `get`, `set`, `flattenObject` | `easytry/object` |
+| **Array** | `chunk`, `unique`, `groupBy`, `sortBy`, `partition`, `range`, `compact` | `easytry/array` |
+| **Number** | `clamp`, `formatCurrency`, `ordinal`, `toHumanReadable`, `formatBytes` | `easytry/number` |
+| **Date** | `timeAgo`, `formatDate`, `daysBetween`, `addDays`, `isToday` | `easytry/date` |
+| **Validate** | `isEmail`, `isURL`, `isEmpty`, `isEqual`, `isUUID`, `isCreditCard` | `easytry/validate` |
+| **Async** | `retry`, `sleep`, `debounce`, `throttle`, `pMap`, `timeout`, `mutex` | `easytry/async` |
+| **Color** | `hexToRgb`, `rgbToHex`, `lighten`, `darken`, `contrastRatio`, `textColor` | `easytry/color` |
+| **Misc** | `ms`, `memoize`, `once`, `pipe`, `deepFreeze`, `safeJsonParse`, `env` | `easytry/misc` |
+
+## String (`easytry/string`)
 
 ```ts
 import {
@@ -51,7 +83,7 @@ squish('  too   many   spaces ')  // 'too many spaces'
 escapeHtml('<p>hi</p>')           // '&lt;p&gt;hi&lt;/p&gt;'
 ```
 
-### ID Generation (`easytry/id`)
+## ID Generation (`easytry/id`)
 
 ```ts
 import {
@@ -65,7 +97,7 @@ shortId()                    // 'x7Kp2mNq'
 randomString(16)             // 'aBcDeFgHiJkLmNoP'
 prefixedId('usr')            // 'usr_abc123def456'
 cuid()                       // 'clx1234567abcdefgh'
-sortableId()                 // '00m2n4o6p8random'
+sortableId()                 // monotonically increasing, sortable
 
 // Sequential incrementer (upgraded from v2)
 const inc = new Incrementer({ format: '000aa0' });
@@ -74,7 +106,7 @@ inc.next()                   // '000aa2'
 inc.next('2024/01/ABC009')   // '2024/01/ABC010'
 ```
 
-### Object (`easytry/object`)
+## Object (`easytry/object`)
 
 ```ts
 import {
@@ -93,7 +125,7 @@ get({ a: { b: 42 } }, 'a.b')                // 42
 set({}, 'a.b.c', 42)                        // { a: { b: { c: 42 } } }
 ```
 
-### Array (`easytry/array`)
+## Array (`easytry/array`)
 
 ```ts
 import {
@@ -117,7 +149,7 @@ sum([1, 2, 3])                   // 6
 average([1, 2, 3])               // 2
 ```
 
-### Number (`easytry/number`)
+## Number (`easytry/number`)
 
 ```ts
 import {
@@ -136,7 +168,7 @@ formatBytes(1073741824)           // '1 GB'
 lerp(0, 100, 0.5)                // 50
 ```
 
-### Date (`easytry/date`)
+## Date (`easytry/date`)
 
 ```ts
 import {
@@ -154,7 +186,7 @@ addDays(new Date(), 7)               // Date (1 week from now)
 isLeapYear(2024)                     // true
 ```
 
-### Validation (`easytry/validate`)
+## Validation (`easytry/validate`)
 
 ```ts
 import {
@@ -174,7 +206,7 @@ isHexColor('#ff0000')          // true
 isCreditCard('4111111111111111') // true (Luhn check)
 ```
 
-### Async (`easytry/async`)
+## Async (`easytry/async`)
 
 ```ts
 import {
@@ -204,7 +236,7 @@ const release = await mutex.acquire();
 try { /* critical section */ } finally { release(); }
 ```
 
-### Color (`easytry/color`)
+## Color (`easytry/color`)
 
 ```ts
 import {
@@ -225,7 +257,7 @@ complementary('#ff0000')         // '#00ffff'
 toRgba('#ff0000', 0.5)           // 'rgba(255, 0, 0, 0.5)'
 ```
 
-### Misc (`easytry/misc`)
+## Misc (`easytry/misc`)
 
 ```ts
 import {
@@ -249,17 +281,29 @@ safeJsonParse('{"a":1}')     // { a: 1 } (no throw)
 deepFreeze({ a: { b: 1 } }) // fully immutable
 ```
 
+## AI / LLM / MCP Integration
+
+This library provides machine-readable documentation for AI agents and LLM tools:
+
+| File | Purpose |
+|---|---|
+| [`llms.txt`](./llms.txt) | Short overview — module list, import patterns, one-line descriptions |
+| [`llms-full.txt`](./llms-full.txt) | Complete API reference — every function signature, types, and examples |
+| [`CLAUDE.md`](./CLAUDE.md) | Project context for AI coding agents (structure, conventions, commands) |
+
+These files follow the [llms.txt](https://llmstxt.org/) convention so AI tools can quickly understand and use this library.
+
 ## Migration from v2
 
 v3 is a complete rewrite. Key changes:
 
-- **Profanity filter removed** - Use a dedicated package like `bad-words` or `leo-profanity`
-- **Incrementer preserved** - Same concept, cleaner API:
-  - `incrementer_by` → `incrementBy`
-  - `formate` → `format`
+- **Profanity filter removed** — Use a dedicated package like `leo-profanity` or `profanease`
+- **Incrementer preserved** — Same concept, cleaner API:
+  - `incrementer_by` -> `incrementBy`
+  - `formate` -> `format`
 - **TypeScript-first** with full type definitions
 - **ESM + CJS** dual output
-- **Tree-shakeable** - import only what you need
+- **Tree-shakeable** — import only what you need
 
 ```ts
 // v2 (CommonJS)
@@ -271,6 +315,10 @@ import { Incrementer } from 'easytry';
 const inc = new Incrementer({ format: '000', incrementBy: 1 });
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
+
 ## License
 
-MIT
+[MIT](./LICENSE)

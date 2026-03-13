@@ -55,4 +55,17 @@ describe("async", () => {
     );
     expect(results).toEqual([2, 4, 6, 8]);
   });
+
+  it("pMap with zero/negative concurrency still processes all items", async () => {
+    const results = await pMap([1, 2, 3], async (n) => n * 10, 0);
+    expect(results).toEqual([10, 20, 30]);
+
+    const results2 = await pMap([1, 2], async (n) => n + 1, -5);
+    expect(results2).toEqual([2, 3]);
+  });
+
+  it("pMap with empty array", async () => {
+    const results = await pMap([], async (n: number) => n, 5);
+    expect(results).toEqual([]);
+  });
 });

@@ -63,10 +63,22 @@ export function cuid(): string {
   return `c${timestamp}${random}`;
 }
 
-/** Generate a timestamp-based sortable ID */
+let _sortableLastTime = 0;
+let _sortableCounter = 0;
+
+/** Generate a timestamp-based sortable ID. Monotonically increasing even within the same millisecond. */
 export function sortableId(): string {
-  const timestamp = Date.now().toString(36).padStart(9, "0");
-  const random = randomString(8);
+  let now = Date.now();
+  if (now === _sortableLastTime) {
+    _sortableCounter++;
+  } else {
+    _sortableLastTime = now;
+    _sortableCounter = 0;
+  }
+  // Encode counter into timestamp to guarantee ordering
+  now = now * 1000 + _sortableCounter;
+  const timestamp = now.toString(36).padStart(12, "0");
+  const random = randomString(6);
   return `${timestamp}${random}`;
 }
 
