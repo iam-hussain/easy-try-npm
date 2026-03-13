@@ -1,0 +1,50 @@
+# easytry
+
+> A modern, lightweight, zero-dependency utility toolkit for everyday JavaScript/TypeScript development.
+
+easytry provides 110+ utility functions across 11 modules. It is tree-shakeable, ships ESM + CJS dual output, and includes full TypeScript type definitions.
+
+## Installation
+
+```bash
+npm install easytry
+```
+
+## Import Patterns
+
+```ts
+// Import from main entry (all utilities)
+import { slugify, chunk, uuid, retry } from 'easytry';
+
+// Import from specific module (tree-shakeable, recommended)
+import { slugify, camelCase } from 'easytry/string';
+import { chunk, groupBy } from 'easytry/array';
+import { uuid, nanoid } from 'easytry/id';
+import { pick, deepClone } from 'easytry/object';
+import { clamp, formatBytes } from 'easytry/number';
+import { timeAgo, formatDate } from 'easytry/date';
+import { isEmail, isEmpty } from 'easytry/validate';
+import { retry, sleep } from 'easytry/async';
+import { hexToRgb, lighten } from 'easytry/color';
+import { ms, memoize } from 'easytry/misc';
+
+// CommonJS
+const { slugify, chunk } = require('easytry');
+```
+
+## Modules
+
+- `easytry/string` — String manipulation: slugify, case conversion, truncate, mask, template, escape
+- `easytry/id` — ID generation: uuid, nanoid, shortId, prefixedId, sequential Incrementer
+- `easytry/object` — Object helpers: pick, omit, deepClone, deepMerge, flatten, get/set by path
+- `easytry/array` — Array helpers: chunk, unique, groupBy, sortBy, partition, range, zip, compact
+- `easytry/number` — Number helpers: clamp, format, ordinal, humanReadable, lerp, formatBytes
+- `easytry/date` — Date helpers: timeAgo, formatDate, daysBetween, addDays, isToday
+- `easytry/validate` — Validators: isEmail, isURL, isEmpty, isEqual, isUUID, isJSON, isCreditCard
+- `easytry/async` — Async helpers: retry with backoff, sleep, debounce, throttle, pMap, timeout, mutex
+- `easytry/color` — Color helpers: hex/rgb/hsl conversion, lighten, darken, contrast, textColor
+- `easytry/misc` — Misc: ms parser, memoize, once, pipe, deepFreeze, safeJsonParse, env readers
+
+## Detailed Documentation
+
+For the full API reference with every function signature, see [llms-full.txt](https://github.com/iam-hussain/easy-try-npm/blob/master/llms-full.txt).

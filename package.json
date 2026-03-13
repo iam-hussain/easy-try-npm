@@ -1,39 +1,169 @@
 {
   "name": "easytry",
-  "version": "2.0.2",
-  "description": "A lightweight library for profanity words filter, auto generate unique alphanumeric id as incremental sequentially, etc..",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index"
+  "version": "3.0.0",
+  "description": "A modern, lightweight, zero-dependency utility toolkit for everyday JavaScript/TypeScript development",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./string": {
+      "import": {
+        "types": "./dist/string.d.ts",
+        "default": "./dist/string.js"
+      },
+      "require": {
+        "types": "./dist/string.d.cts",
+        "default": "./dist/string.cjs"
+      }
+    },
+    "./id": {
+      "import": {
+        "types": "./dist/id.d.ts",
+        "default": "./dist/id.js"
+      },
+      "require": {
+        "types": "./dist/id.d.cts",
+        "default": "./dist/id.cjs"
+      }
+    },
+    "./object": {
+      "import": {
+        "types": "./dist/object.d.ts",
+        "default": "./dist/object.js"
+      },
+      "require": {
+        "types": "./dist/object.d.cts",
+        "default": "./dist/object.cjs"
+      }
+    },
+    "./array": {
+      "import": {
+        "types": "./dist/array.d.ts",
+        "default": "./dist/array.js"
+      },
+      "require": {
+        "types": "./dist/array.d.cts",
+        "default": "./dist/array.cjs"
+      }
+    },
+    "./number": {
+      "import": {
+        "types": "./dist/number.d.ts",
+        "default": "./dist/number.js"
+      },
+      "require": {
+        "types": "./dist/number.d.cts",
+        "default": "./dist/number.cjs"
+      }
+    },
+    "./date": {
+      "import": {
+        "types": "./dist/date.d.ts",
+        "default": "./dist/date.js"
+      },
+      "require": {
+        "types": "./dist/date.d.cts",
+        "default": "./dist/date.cjs"
+      }
+    },
+    "./validate": {
+      "import": {
+        "types": "./dist/validate.d.ts",
+        "default": "./dist/validate.js"
+      },
+      "require": {
+        "types": "./dist/validate.d.cts",
+        "default": "./dist/validate.cjs"
+      }
+    },
+    "./async": {
+      "import": {
+        "types": "./dist/async.d.ts",
+        "default": "./dist/async.js"
+      },
+      "require": {
+        "types": "./dist/async.d.cts",
+        "default": "./dist/async.cjs"
+      }
+    },
+    "./color": {
+      "import": {
+        "types": "./dist/color.d.ts",
+        "default": "./dist/color.js"
+      },
+      "require": {
+        "types": "./dist/color.d.cts",
+        "default": "./dist/color.cjs"
+      }
+    },
+    "./misc": {
+      "import": {
+        "types": "./dist/misc.d.ts",
+        "default": "./dist/misc.js"
+      },
+      "require": {
+        "types": "./dist/misc.d.cts",
+        "default": "./dist/misc.cjs"
+      }
+    }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZaHuPro/EasyTry.git"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "easy",
-    "try",
-    "profanity",
-    "bad",
-    "words",
-    "filter",
-    "basic",
-    "multi",
-    "language",
-    "auto",
-    "generate",
-    "alphanumeric",
-    "increment",
-    "sequentially",
-    "pattern",
-    "unique",
-    "generate ID",
-    "ID"
+    "utilities",
+    "toolkit",
+    "string",
+    "array",
+    "object",
+    "date",
+    "validation",
+    "async",
+    "color",
+    "id-generator",
+    "incrementer",
+    "slugify",
+    "deepclone",
+    "retry",
+    "debounce",
+    "throttle",
+    "lightweight",
+    "zero-dependency",
+    "typescript"
   ],
   "author": "ZaHu",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ZaHuPro/EasyTry/issues"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iam-hussain/easy-try-npm.git"
   },
-  "homepage": "https://github.com/ZaHuPro/EasyTry#readme"
+  "bugs": {
+    "url": "https://github.com/iam-hussain/easy-try-npm/issues"
+  },
+  "homepage": "https://github.com/iam-hussain/easy-try-npm#readme",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  },
+  "sideEffects": false
 }

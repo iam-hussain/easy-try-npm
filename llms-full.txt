@@ -1,0 +1,740 @@
+# easytry — Full API Reference
+
+> A modern, lightweight, zero-dependency utility toolkit for everyday JavaScript/TypeScript development.
+> Version: 3.0.0 | License: MIT | Runtime dependencies: 0
+
+## Installation
+
+```bash
+npm install easytry
+```
+
+## Import Patterns
+
+```ts
+// Named imports from main entry
+import { slugify, chunk, uuid } from 'easytry';
+
+// Tree-shakeable sub-path imports (recommended)
+import { slugify } from 'easytry/string';
+import { chunk } from 'easytry/array';
+
+// CommonJS
+const { slugify } = require('easytry');
+const { chunk } = require('easytry/array');
+```
+
+---
+
+## easytry/string — String Utilities (19 functions)
+
+### slugify(str: string): string
+Convert a string to a URL-friendly slug. Normalizes unicode, lowercases, replaces spaces with hyphens.
+```ts
+slugify('Hello World!')      // 'hello-world'
+slugify('Café Résumé')       // 'cafe-resume'
+```
+
+### truncate(str: string, maxLength: number, suffix?: string): string
+Truncate a string to maxLength, appending suffix (default: "...") if truncated.
+```ts
+truncate('Hello World', 8)        // 'Hello...'
+truncate('Hello World', 8, '~')   // 'Hello W~'
+```
+
+### camelCase(str: string): string
+Convert string to camelCase.
+```ts
+camelCase('hello world')    // 'helloWorld'
+camelCase('Hello-World')    // 'helloWorld'
+```
+
+### snakeCase(str: string): string
+Convert string to snake_case.
+```ts
+snakeCase('helloWorld')     // 'hello_world'
+snakeCase('Hello World')    // 'hello_world'
+```
+
+### kebabCase(str: string): string
+Convert string to kebab-case.
+```ts
+kebabCase('helloWorld')     // 'hello-world'
+```
+
+### pascalCase(str: string): string
+Convert string to PascalCase.
+```ts
+pascalCase('hello world')   // 'HelloWorld'
+```
+
+### titleCase(str: string): string
+Convert string to Title Case.
+```ts
+titleCase('hello world')    // 'Hello World'
+```
+
+### capitalize(str: string): string
+Capitalize the first letter.
+```ts
+capitalize('hello')         // 'Hello'
+```
+
+### maskString(str: string, options?: { visibleStart?: number; visibleEnd?: number; maskChar?: string }): string
+Mask a string, showing only first/last N characters.
+- visibleStart: number of visible chars at start (default: 0)
+- visibleEnd: number of visible chars at end (default: 0)
+- maskChar: replacement character (default: '*')
+```ts
+maskString('4111111111111111', { visibleStart: 4, visibleEnd: 4 })
+// '4111********1111'
+```
+
+### template(str: string, data: Record<string, string | number>): string
+Simple template interpolation with {{key}} placeholders. Unmatched keys are left as-is.
+```ts
+template('Hello {{name}}, age {{age}}', { name: 'Alice', age: 30 })
+// 'Hello Alice, age 30'
+```
+
+### reverse(str: string): string
+Reverse a string (Unicode-safe using spread operator).
+```ts
+reverse('hello')   // 'olleh'
+```
+
+### countOccurrences(str: string, substring: string): number
+Count non-overlapping occurrences of substring.
+```ts
+countOccurrences('hello world hello', 'hello')  // 2
+```
+
+### squish(str: string): string
+Collapse all whitespace to single spaces and trim.
+```ts
+squish('  hello   world  ')  // 'hello world'
+```
+
+### isPalindrome(str: string): boolean
+Check if string is a palindrome (ignores case and non-alphanumeric characters).
+```ts
+isPalindrome('racecar')                           // true
+isPalindrome('A man, a plan, a canal: Panama')    // true
+```
+
+### initials(str: string): string
+Generate initials from a name.
+```ts
+initials('John Doe')            // 'JD'
+initials('Alice Bob Charlie')   // 'ABC'
+```
+
+### escapeHtml(str: string): string
+Escape HTML special characters: & < > " '
+```ts
+escapeHtml('<p>"hi"</p>')  // '&lt;p&gt;&quot;hi&quot;&lt;/p&gt;'
+```
+
+### unescapeHtml(str: string): string
+Unescape HTML entities: &amp; &lt; &gt; &quot; &#39;
+```ts
+unescapeHtml('&lt;p&gt;')  // '<p>'
+```
+
+### center(str: string, width: number, fillChar?: string): string
+Pad a string on both sides to center it within width.
+```ts
+center('hi', 6)        // '  hi  '
+center('hi', 7, '-')   // '--hi---'
+```
+
+### stripAnsi(str: string): string
+Strip ANSI escape codes from a string.
+```ts
+stripAnsi('\x1B[31mhello\x1B[0m')  // 'hello'
+```
+
+---
+
+## easytry/id — ID Generation (7 functions + 1 class)
+
+### randomString(length?: number, chars?: string): string
+Generate a random string. Default length: 16. Default charset: alphanumeric. Uses crypto.getRandomValues when available.
+```ts
+randomString(10)                    // 'a8Kx2mN9pQ'
+randomString(6, '0123456789')       // '483921'
+```
+
+### nanoid(size?: number): string
+Generate a compact unique ID. Default size: 21. URL-safe alphabet.
+```ts
+nanoid()    // 'V1StGXR8_Z5jdHi6B-myT'
+nanoid(10)  // 'IRFa-VaY2b'
+```
+
+### uuid(): string
+Generate a UUID v4 (random).
+```ts
+uuid()  // '550e8400-e29b-41d4-a716-446655440000'
+```
+
+### shortId(length?: number): string
+Generate a short unique ID. Default length: 8.
+```ts
+shortId()    // 'x7Kp2mNq'
+shortId(12)  // 'x7Kp2mNq4aBc'
+```
+
+### prefixedId(prefix: string, length?: number): string
+Generate a prefixed ID. Default random part length: 12.
+```ts
+prefixedId('usr')      // 'usr_abc123def456'
+prefixedId('ord', 8)   // 'ord_a1b2c3d4'
+```
+
+### cuid(): string
+Generate a CUID-like collision-resistant ID. Starts with 'c', includes timestamp.
+```ts
+cuid()  // 'clx1234567abcdefgh'
+```
+
+### sortableId(): string
+Generate a timestamp-based sortable ID. IDs sort chronologically.
+```ts
+sortableId()  // '00m2n4o6pabcdefgh'
+```
+
+### class Incrementer
+Sequential alphanumeric ID incrementer. Generates next ID in sequence based on a pattern.
+
+**Constructor options (IncrementerOptions):**
+- uppercase?: boolean — convert output to uppercase (default: false)
+- incrementBy?: number — increment step (default: 1)
+- format?: string — pattern template (default: '000aa0'). Use 0 for digits, a/A for letters.
+
+**Methods:**
+- next(input?: string): string — get the next incremented value
+- reset(): void — reset state
+
+```ts
+const inc = new Incrementer();
+inc.next()                    // '000aa1'
+inc.next()                    // '000aa2'
+inc.next('2024/01/ABC009')    // '2024/01/ABC010'
+inc.reset();
+
+const inc2 = new Incrementer({ uppercase: true, incrementBy: 5, format: 'AAA000' });
+inc2.next()   // 'AAA005'
+inc2.next()   // 'AAA010'
+```
+
+---
+
+## easytry/object — Object Utilities (13 functions)
+
+### pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>
+Pick specific keys from an object.
+```ts
+pick({ a: 1, b: 2, c: 3 }, ['a', 'c'])  // { a: 1, c: 3 }
+```
+
+### omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>
+Omit specific keys from an object.
+```ts
+omit({ a: 1, b: 2, c: 3 }, ['b'])  // { a: 1, c: 3 }
+```
+
+### deepClone<T>(obj: T): T
+Deep clone an object. Handles Date, RegExp, nested objects, and arrays.
+```ts
+const clone = deepClone({ a: { b: 1 }, d: [1, 2] });
+```
+
+### deepMerge<T>(target: T, source: Partial<T>): T
+Deep merge two objects. Source values override target. Nested objects are recursively merged.
+```ts
+deepMerge({ a: 1, b: { x: 1 } }, { b: { y: 2 } })
+// { a: 1, b: { x: 1, y: 2 } }
+```
+
+### flattenObject(obj: Record<string, unknown>, prefix?: string): Record<string, unknown>
+Flatten nested object to dot-notation keys.
+```ts
+flattenObject({ a: { b: { c: 1 } } })  // { 'a.b.c': 1 }
+```
+
+### unflattenObject(obj: Record<string, unknown>): Record<string, unknown>
+Unflatten dot-notation keys back to nested object.
+```ts
+unflattenObject({ 'a.b.c': 1 })  // { a: { b: { c: 1 } } }
+```
+
+### get(obj: Record<string, unknown>, path: string, defaultValue?: unknown): unknown
+Get nested value by dot-notation path.
+```ts
+get({ a: { b: { c: 42 } } }, 'a.b.c')           // 42
+get({ a: 1 }, 'a.b.c', 'default')                // 'default'
+```
+
+### set(obj: Record<string, unknown>, path: string, value: unknown): Record<string, unknown>
+Set nested value by dot-notation path. Creates intermediate objects.
+```ts
+set({}, 'a.b.c', 42)  // { a: { b: { c: 42 } } }
+```
+
+### isPlainObject(value: unknown): value is Record<string, unknown>
+Check if value is a plain object (not array, Date, etc.).
+```ts
+isPlainObject({})           // true
+isPlainObject([])           // false
+isPlainObject(new Date())   // false
+```
+
+### entries<T>(obj: T): [keyof T, T[keyof T]][]
+Get typed entries from an object.
+
+### fromEntries<K extends string, V>(entries: [K, V][]): Record<K, V>
+Create an object from key-value pairs (typed).
+
+### mapValues<T, U>(obj: T, fn: (value, key) => U): Record<keyof T, U>
+Map over object values, preserving keys.
+```ts
+mapValues({ a: 1, b: 2 }, v => v * 2)  // { a: 2, b: 4 }
+```
+
+### filterObject<T>(obj: T, fn: (value, key) => boolean): Partial<T>
+Filter object entries by predicate.
+```ts
+filterObject({ a: 1, b: 2, c: 3 }, v => v > 1)  // { b: 2, c: 3 }
+```
+
+---
+
+## easytry/array — Array Utilities (22 functions)
+
+### chunk<T>(arr: T[], size: number): T[][]
+Split array into chunks. Throws if size <= 0.
+```ts
+chunk([1, 2, 3, 4, 5], 2)  // [[1, 2], [3, 4], [5]]
+```
+
+### unique<T>(arr: T[]): T[]
+Remove duplicates using Set.
+```ts
+unique([1, 2, 2, 3])  // [1, 2, 3]
+```
+
+### uniqueBy<T>(arr: T[], keyFn: (item: T) => unknown): T[]
+Remove duplicates by key function. Keeps first occurrence.
+```ts
+uniqueBy(users, u => u.id)
+```
+
+### shuffle<T>(arr: T[]): T[]
+Shuffle array (Fisher-Yates). Returns new array, original unchanged.
+
+### groupBy<T>(arr: T[], keyFn: (item: T) => string): Record<string, T[]>
+Group items by key function.
+```ts
+groupBy(users, u => u.role)  // { admin: [...], user: [...] }
+```
+
+### sortBy<T>(arr: T[], keyFn: (item: T) => number | string, order?: 'asc' | 'desc'): T[]
+Sort by key function. Default: ascending. Returns new array.
+```ts
+sortBy(items, i => i.price, 'desc')
+```
+
+### difference<T>(arr1: T[], arr2: T[]): T[]
+Items in arr1 not in arr2.
+
+### intersection<T>(arr1: T[], arr2: T[]): T[]
+Items in both arrays.
+
+### symmetricDifference<T>(arr1: T[], arr2: T[]): T[]
+Items in either array but not both.
+
+### flatten<T>(arr: unknown[], depth?: number): T[]
+Flatten nested arrays. Default depth: Infinity.
+
+### last<T>(arr: T[]): T | undefined
+Get last element.
+
+### first<T>(arr: T[]): T | undefined
+Get first element.
+
+### sample<T>(arr: T[]): T | undefined
+Pick random element.
+
+### sampleMany<T>(arr: T[], count: number): T[]
+Pick N random elements.
+
+### partition<T>(arr: T[], predicate: (item: T) => boolean): [T[], T[]]
+Split array into [passing, failing] by predicate.
+```ts
+partition([1,2,3,4], n => n > 2)  // [[3,4], [1,2]]
+```
+
+### zip<T>(...arrays: T[][]): T[][]
+Zip arrays together.
+
+### count<T>(arr: T[], predicate: (item: T) => boolean): number
+Count items matching predicate.
+
+### sum(arr: number[]): number
+Sum all numbers.
+
+### average(arr: number[]): number
+Average of all numbers. Returns 0 for empty array.
+
+### range(start: number, end: number, step?: number): number[]
+Create number range. Default step: 1. Supports negative steps.
+```ts
+range(0, 5)       // [0, 1, 2, 3, 4]
+range(10, 0, -2)  // [10, 8, 6, 4, 2]
+```
+
+### compact<T>(arr: (T | null | undefined | false | 0 | '')[]): T[]
+Remove falsy values.
+
+### frequency<T extends string | number>(arr: T[]): Record<T, number>
+Create frequency map.
+```ts
+frequency(['a','b','a'])  // { a: 2, b: 1 }
+```
+
+---
+
+## easytry/number — Number Utilities (14 functions)
+
+### clamp(value: number, min: number, max: number): number
+Clamp number between min and max.
+```ts
+clamp(15, 0, 10)  // 10
+clamp(-5, 0, 10)  // 0
+```
+
+### randomInt(min: number, max: number): number
+Random integer between min and max (inclusive).
+
+### randomFloat(min: number, max: number, decimals?: number): number
+Random float. Default decimals: 2.
+
+### formatCurrency(amount: number, currency?: string, locale?: string): string
+Format as currency. Default: USD, en-US.
+```ts
+formatCurrency(19.99)             // '$19.99'
+formatCurrency(19.99, 'EUR', 'de-DE')  // '19,99 €'
+```
+
+### ordinal(n: number): string
+Ordinal suffix: 1st, 2nd, 3rd, 4th, 11th, 12th, 13th, 21st, etc.
+```ts
+ordinal(3)   // '3rd'
+ordinal(11)  // '11th'
+```
+
+### toHumanReadable(num: number, decimals?: number): string
+Human-readable format. Default decimals: 1.
+```ts
+toHumanReadable(1500000)  // '1.5M'
+toHumanReadable(-2500)    // '-2.5K'
+```
+
+### formatNumber(num: number, locale?: string): string
+Format with thousand separators.
+```ts
+formatNumber(1000000)  // '1,000,000'
+```
+
+### round(num: number, decimals?: number): number
+Round to decimal places. Default: 0.
+
+### percentOf(percent: number, total: number): number
+Calculate value from percentage: (percent/100) * total.
+
+### toPercent(value: number, total: number, decimals?: number): number
+Calculate percentage. Returns 0 if total is 0.
+
+### lerp(start: number, end: number, t: number): number
+Linear interpolation. t is clamped to [0, 1].
+
+### mapRange(value: number, inMin: number, inMax: number, outMin: number, outMax: number): number
+Map value from one range to another.
+
+### inRange(value: number, min: number, max: number): boolean
+Check if number is between min and max (inclusive).
+
+### formatBytes(bytes: number, decimals?: number): string
+Format bytes to human-readable. Default decimals: 2.
+```ts
+formatBytes(1073741824)  // '1 GB'
+formatBytes(1536)        // '1.5 KB'
+```
+
+---
+
+## easytry/date — Date Utilities (15 functions)
+
+All functions accept Date | number | string as date input.
+
+### timeAgo(date): string
+Human-readable past time: "just now", "5 minutes ago", "3 days ago", "2 years ago".
+
+### timeFromNow(date): string
+Human-readable future time: "in 5 minutes", "in 3 days". Falls back to timeAgo for past dates.
+
+### formatDate(date, format?: string): string
+Format date with tokens. Default format: 'YYYY-MM-DD'.
+Tokens: YYYY, YY, MM, DD, HH, mm, ss.
+```ts
+formatDate(date, 'DD/MM/YYYY HH:mm')  // '15/01/2024 09:30'
+```
+
+### isToday(date): boolean
+### isYesterday(date): boolean
+### isTomorrow(date): boolean
+
+### daysBetween(date1, date2): number
+Absolute number of days between two dates.
+
+### addDays(date, days: number): Date
+### addHours(date, hours: number): Date
+### addMinutes(date, minutes: number): Date
+
+### startOfDay(date): Date
+Returns new Date set to 00:00:00.000.
+
+### endOfDay(date): Date
+Returns new Date set to 23:59:59.999.
+
+### isDateBetween(date, start, end): boolean
+Check if date falls within range (inclusive).
+
+### isLeapYear(year: number): boolean
+
+### daysInMonth(year: number, month: number): number
+Month is 1-indexed (1 = January).
+
+---
+
+## easytry/validate — Validation Utilities (14 functions)
+
+### isEmail(str: string): boolean
+Basic email format check.
+
+### isURL(str: string): boolean
+Uses URL constructor for validation.
+
+### isEmpty(value: unknown): boolean
+Returns true for: null, undefined, '', '  ', [], {}, empty Map, empty Set.
+Returns false for: 0, false (non-empty primitives).
+
+### isEqual(a: unknown, b: unknown): boolean
+Deep equality. Handles Date, Array, nested objects.
+
+### isIPv4(str: string): boolean
+Validates IPv4 format with range checking (0-255).
+
+### isIPv6(str: string): boolean
+Basic IPv6 format check.
+
+### isHexColor(str: string): boolean
+Validates #RGB, #RRGGBB, #RRGGBBAA formats.
+
+### isAlphanumeric(str: string): boolean
+Only a-z, A-Z, 0-9.
+
+### isJSON(str: string): boolean
+Checks if string is parseable JSON.
+
+### isNumber(value: unknown): value is number
+True for numbers, false for NaN.
+
+### isUUID(str: string): boolean
+UUID v1-v5 format validation.
+
+### isObject(value: unknown): value is Record<string, unknown>
+True for non-null objects that are not arrays.
+
+### isCreditCard(str: string): boolean
+Luhn algorithm validation. Accepts spaces and hyphens.
+
+### isPhoneNumber(str: string): boolean
+Basic international phone format (7-20 digits with optional +, spaces, hyphens, parens).
+
+---
+
+## easytry/async — Async Utilities (8 functions)
+
+### retry<T>(fn: () => Promise<T>, options?: RetryOptions): Promise<T>
+Retry with exponential backoff.
+
+**RetryOptions:**
+- attempts?: number (default: 3)
+- delay?: number in ms (default: 1000)
+- backoff?: number multiplier (default: 2)
+- maxDelay?: number in ms (default: 30000)
+- onRetry?: (error: Error, attempt: number) => void
+
+```ts
+const data = await retry(() => fetch(url), {
+  attempts: 3, delay: 1000, backoff: 2,
+  onRetry: (err, n) => console.log(`Retry ${n}`)
+});
+```
+
+### sleep(ms: number): Promise<void>
+```ts
+await sleep(1000);
+```
+
+### debounce<T>(fn: T, wait: number): T & { cancel: () => void }
+Returns debounced function with cancel() method.
+
+### throttle<T>(fn: T, limit: number): T & { cancel: () => void }
+Returns throttled function with cancel() method.
+
+### pMap<T, R>(items: T[], fn: (item: T, index: number) => Promise<R>, concurrency?: number): Promise<R[]>
+Run promises with concurrency limit. Default: Infinity (all parallel).
+```ts
+const results = await pMap(urls, url => fetch(url), 5);
+```
+
+### deferred<T>(): { promise: Promise<T>; resolve: (value: T) => void; reject: (reason?) => void }
+Create a deferred promise with external resolve/reject.
+
+### timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>
+Add timeout to a promise. Throws Error with message on timeout.
+```ts
+await timeout(slowFn(), 5000, 'Too slow');
+```
+
+### createMutex(): { acquire(): Promise<() => void>; isLocked: boolean }
+Mutex for async operations. acquire() returns a release function.
+```ts
+const mutex = createMutex();
+const release = await mutex.acquire();
+try { /* critical section */ } finally { release(); }
+```
+
+---
+
+## easytry/color — Color Utilities (13 functions)
+
+**Types:**
+- RGB: { r: number; g: number; b: number }
+- HSL: { h: number; s: number; l: number }
+
+### hexToRgb(hex: string): RGB
+Supports #RGB and #RRGGBB (with or without #).
+
+### rgbToHex(r: number, g: number, b: number): string
+Returns #rrggbb format. Clamps values to 0-255.
+
+### rgbToHsl(r: number, g: number, b: number): HSL
+Returns h (0-360), s (0-100), l (0-100).
+
+### hslToRgb(h: number, s: number, l: number): RGB
+h: 0-360, s: 0-100, l: 0-100.
+
+### lighten(hex: string, amount: number): string
+Lighten by percentage (0-100). Returns hex.
+
+### darken(hex: string, amount: number): string
+Darken by percentage (0-100). Returns hex.
+
+### randomColor(): string
+Random #rrggbb hex color.
+
+### luminance(hex: string): number
+Relative luminance (0-1) per WCAG.
+
+### contrastRatio(hex1: string, hex2: string): number
+WCAG contrast ratio (1-21).
+
+### textColor(bgHex: string): '#000000' | '#ffffff'
+Best text color for readability on given background.
+
+### mixColors(hex1: string, hex2: string, weight?: number): string
+Mix two colors. weight 0-1, default 0.5.
+
+### complementary(hex: string): string
+Complementary (inverse) color.
+
+### toRgba(hex: string, alpha?: number): string
+Convert to CSS rgba() string. Default alpha: 1.
+
+---
+
+## easytry/misc — Miscellaneous Utilities (16 functions)
+
+### ms(input: string | number): number
+Parse time string to milliseconds. Passthrough for numbers.
+Supported units: ms, s, sec, m, min, h, hr, hour, d, day, w, week.
+```ts
+ms('2h')     // 7200000
+ms('500ms')  // 500
+ms('1.5d')   // 129600000
+```
+
+### msToString(milliseconds: number): string
+Convert ms to human string.
+```ts
+msToString(90000)  // '1.5m'
+```
+
+### parseBytes(input: string): number
+Parse byte string. Units: B, KB, MB, GB, TB, PB.
+```ts
+parseBytes('1.5GB')  // 1610612736
+```
+
+### env(key: string, defaultValue?: string): string
+Safe environment variable reader. Returns '' if unavailable. Works in Node and browser.
+
+### envNumber(key: string, defaultValue?: number): number
+Env var as number. Default: 0.
+
+### envBool(key: string, defaultValue?: boolean): boolean
+Env var as boolean. Truthy: 'true', '1', 'yes', 'on'. Default: false.
+
+### hash(str: string): number
+Non-cryptographic hash (djb2). Returns positive integer.
+
+### hashHex(str: string): string
+Hash as hex string.
+
+### noop(): void
+No-op function.
+
+### identity<T>(value: T): T
+Identity function. Returns input unchanged.
+
+### memoize<T>(fn: T, keyFn?: (...args) => string): T
+Cache function results. Default key: JSON.stringify(args).
+
+### once<T>(fn: T): T
+Function that runs only once. Subsequent calls return first result.
+
+### pipe<T>(value: T, ...fns: ((arg: T) => T)[]): T
+Pipe value through functions left-to-right.
+```ts
+pipe(5, x => x * 2, x => x + 1)  // 11
+```
+
+### enumFromArray<T extends string>(values: T[]): Record<T, T>
+Create enum-like object from string array.
+```ts
+enumFromArray(['active', 'inactive'])  // { active: 'active', inactive: 'inactive' }
+```
+
+### deepFreeze<T>(obj: T): Readonly<T>
+Recursively freeze object. Modifications throw in strict mode.
+
+### safeJsonParse<T>(str: string, fallback?: T): T | undefined
+Parse JSON without throwing. Returns fallback on error.
+```ts
+safeJsonParse('{"a":1}')        // { a: 1 }
+safeJsonParse('invalid', null)  // null
+```
