@@ -1,6 +1,6 @@
 {
   "name": "easytry",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A modern, lightweight, zero-dependency utility toolkit for everyday JavaScript/TypeScript development",
   "type": "module",
   "main": "./dist/index.cjs",
