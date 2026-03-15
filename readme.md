@@ -6,11 +6,24 @@
 [![bundle size](https://img.shields.io/bundlephobia/minzip/easytry)](https://bundlephobia.com/package/easytry)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
 [![zero dependencies](https://img.shields.io/badge/dependencies-0-green.svg)](https://www.npmjs.com/package/easytry)
+[![Node.js](https://img.shields.io/node/v/easytry.svg)](https://nodejs.org)
 [![license](https://img.shields.io/npm/l/easytry.svg)](https://github.com/iam-hussain/easy-try-npm/blob/master/LICENSE)
 
-A modern, lightweight, **zero-dependency** utility toolkit for everyday JavaScript/TypeScript development.
+A modern, lightweight, **zero-dependency** utility toolkit for everyday JavaScript/TypeScript development. Stop installing 15 micro-packages for `slugify`, `deepClone`, `retry`, and `uuid` — get them all in one tree-shakeable import.
 
-**Tree-shakeable** | **ESM + CJS** | **Full TypeScript** | **110+ utilities** | **Universal (Node + Browser)**
+**110+ utilities** | **Tree-shakeable** | **ESM + CJS** | **Full TypeScript** | **Universal (Node + Browser)**
+
+## Why easytry?
+
+| | easytry | lodash | Individual packages |
+|---|---|---|---|
+| **Bundle size** | Import only what you use (tree-shakeable) | 72kB min+gz (full) | Varies per package |
+| **Dependencies** | 0 | 0 | Each adds its own |
+| **TypeScript** | Built-in (strict mode) | `@types/lodash` needed | Varies |
+| **Modern APIs** | `uuid`, `retry`, `debounce`, `timeAgo`, `ms()` | Not included | 5+ separate installs |
+| **ESM + CJS** | Dual output | ESM via lodash-es | Varies |
+
+**The pitch:** One `npm install` replaces `slugify` + `uuid` + `nanoid` + `ms` + `p-retry` + `deep-clone` + `is-email` — with zero transitive dependencies and full TypeScript support.
 
 ## Installation
 
@@ -18,27 +31,36 @@ A modern, lightweight, **zero-dependency** utility toolkit for everyday JavaScri
 npm install easytry
 ```
 
-```bash
-yarn add easytry
-```
+<details>
+<summary>yarn / pnpm / bun</summary>
 
 ```bash
+yarn add easytry
 pnpm add easytry
+bun add easytry
 ```
+
+</details>
 
 ## Quick Start
 
 ```ts
-// Import everything
-import { slugify, chunk, timeAgo, uuid, retry } from 'easytry';
+import { slugify, chunk, retry, uuid } from 'easytry';
 
-// Or import only what you need (tree-shakeable, recommended)
+slugify('Hello World!')       // 'hello-world'
+chunk([1, 2, 3, 4, 5], 2)    // [[1, 2], [3, 4], [5]]
+uuid()                        // '550e8400-e29b-41d4-a716-446655440000'
+
+const data = await retry(() => fetch('/api'), { attempts: 3, backoff: 2 });
+```
+
+Import only what you need for smaller bundles:
+
+```ts
 import { slugify, camelCase } from 'easytry/string';
 import { chunk, groupBy } from 'easytry/array';
 import { uuid, nanoid } from 'easytry/id';
-
-// CommonJS
-const { slugify, chunk } = require('easytry');
+import { retry, debounce } from 'easytry/async';
 ```
 
 ## Modules at a Glance
@@ -315,9 +337,15 @@ import { Incrementer } from 'easytry';
 const inc = new Incrementer({ format: '000', incrementBy: 1 });
 ```
 
+## Compatibility
+
+- **Node.js** 18, 20, 22, 24+
+- **Browsers** All modern browsers (ES2020+)
+- **Bun** and **Deno** (via npm specifiers)
+
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
+Contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
 
 ## License
 

@@ -119,12 +119,15 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "llms.txt",
+    "llms-full.txt"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
@@ -132,6 +135,8 @@
   "keywords": [
     "utilities",
     "toolkit",
+    "helpers",
+    "utils",
     "string",
     "array",
     "object",
@@ -140,16 +145,32 @@
     "async",
     "color",
     "id-generator",
-    "incrementer",
+    "uuid",
+    "nanoid",
     "slugify",
     "deepclone",
+    "deep-merge",
     "retry",
     "debounce",
     "throttle",
+    "memoize",
+    "pipe",
+    "chunk",
+    "group-by",
+    "time-ago",
+    "format-date",
+    "is-email",
+    "tree-shakeable",
+    "esm",
     "lightweight",
     "zero-dependency",
-    "typescript"
+    "no-dependencies",
+    "typescript",
+    "lodash-alternative"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "author": "ZaHu",
   "license": "MIT",
   "repository": {
@@ -163,7 +184,7 @@
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.4.0",
-    "vitest": "^1.6.0"
+    "vitest": "^4.1.0"
   },
   "sideEffects": false
 }
